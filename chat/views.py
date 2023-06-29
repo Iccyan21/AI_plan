@@ -10,7 +10,7 @@ def service_proposal_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "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"
+            openai.api_key = "8"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -67,7 +67,7 @@ def product_ideas_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "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"
+            openai.api_key = "8"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -114,7 +114,7 @@ def business_composition_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "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"
+            openai.api_key = ""
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -158,7 +158,7 @@ def initial_hypothesis_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "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"
+            openai.api_key = ""
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -202,7 +202,7 @@ def product_ideas_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "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"
+            openai.api_key = ""
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -249,7 +249,7 @@ def business_composition_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "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"
+            openai.api_key = ""
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -293,7 +293,7 @@ def market_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "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"
+            openai.api_key = ""
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
