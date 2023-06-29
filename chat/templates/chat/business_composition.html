@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>サービス提案フォーム</title>
+</head>
+<body>
+    <h1>商品のアイデア</h1>
+    <p>あなたの商品のアイデアで、誰が、誰に、何を提供し、何を得るのか、事業の基本的な構成を図で表現します。事業の登場人物／企業、商品（価値）とお金（対価）の流れを明確にし、事業の構成に矛盾がないか、すべての人がメリットを得られるかを確認します。。</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">提出</button>
+    </form>
+
+    <h2>ChatGPTの応答:</h2>
+    <p> {% if chat_results.source_of_income %}{{ chat_results.source_of_income }}{% else %}情報なし{% endif %}</p>
+    <p> {% if chat_results.business_model %}{{ chat_results.business_model }}{% else %}情報なし{% endif %}</p>
+
+</body>
+</html>

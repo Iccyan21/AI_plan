@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>サービス提案フォーム</title>
+</head>
+<body>
+    <h1>サービス提案フォーム</h1>
+    <p>事業計画を作るための最初のステップとして、あなたの商品のアイデアを分かりやすくまとめます。商品を提供する相手である顧客と、顧客が抱えている課題を定義した上で、その課題を解決するための商品の具体的な内容をまとめます。</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">提出</button>
+    </form>
+
+    <h2>ChatGPTの応答:</h2>
+    <p>{{ chat_results.value }}</p>
+    <p>{{ chat_results.similar_services }}</p>
+    <p>{{ chat_results.unique_value }}</p>
+    <p>{{ chat_results.solution }}</p>
+    <p>{{ chat_results.customer }}</p>
+</body>
+</html>
