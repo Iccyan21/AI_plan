@@ -3,20 +3,94 @@
 <head>
     <meta charset='utf-8' />
     <title>サービス提案フォーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+            margin-right: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .response {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .response h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .response p {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>商品のアイデア</h1>
-    <p>事業計画を作るための最初のステップとして、あなたの商品のアイデアを分かりやすくまとめます。商品を提供する相手である顧客と、顧客が抱えている課題を定義した上で、その課題を解決するための商品の具体的な内容をまとめます。</p>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">提出</button>
-    </form>
+    <div class="container">
+        <h1>顧客定義</h1>
 
-    <h2>ChatGPTの応答:</h2>
-    <p> {% if chat_results.product %}{{ chat_results.product }}{% else %}情報なし{% endif %}</p>
-    <p> {% if chat_results.customer %}{{ chat_results.customer }}{% else %}情報なし{% endif %}</p>
-    <p> {% if chat_results.lookalike %}{{ chat_results.lookalike }}{% else %}情報なし{% endif %}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="id_service_details">サービスの詳細:</label>
+            {{ form.service_details }}
+            <button type="submit">提出</button>
+        </form>
 
+        <!-- ChatGPTの応答 -->
+        <div class="response">
+            <h2>ChatGPTの応答:</h2>
+            <p>顧客: {% if chat_results.product %}{{ chat_results.product }}{% else %}情報なし{% endif %}</p>
+            <p>顧客価値提供： {% if chat_results.customer %}{{ chat_results.customer }}{% else %}情報なし{% endif %}</p>
+            <p>ニーズと要求: {% if chat_results.lookalike %}{{ chat_results.lookalike }}{% else %}情報なし{% endif %}</p>
+        </div>
+    </div>
 </body>
 </html>

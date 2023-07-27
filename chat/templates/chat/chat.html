@@ -3,21 +3,98 @@
 <head>
     <meta charset='utf-8' />
     <title>サービス提案フォーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+            margin-right: 20px;
+   
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .response {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .response h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .response p {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>サービス提案フォーム</h1>
-    <p>事業計画を作るための最初のステップとして、あなたの商品のアイデアを分かりやすくまとめます。商品を提供する相手である顧客と、顧客が抱えている課題を定義した上で、その課題を解決するための商品の具体的な内容をまとめます。</p>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">提出</button>
-    </form>
+    <div class="container">
+        <h1>サービスの内容を整理する</h1>
+        <p>このフォームでは、AIに企画を考えてもらうために以下の項目について記入してください。AIがあなたの提案をもとにアイデアを生成し、次のステップに進みます。</p>
 
-    <h2>ChatGPTの応答:</h2>
-    <p>{{ chat_results.value }}</p>
-    <p>{{ chat_results.similar_services }}</p>
-    <p>{{ chat_results.unique_value }}</p>
-    <p>{{ chat_results.solution }}</p>
-    <p>{{ chat_results.customer }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="id_service_details">サービスの詳細:</label>
+            {{ form.service_details }}
+            <button type="submit">提案してもらう</button>
+        </form>
+
+        {% if chat_results %}
+            <div class="response">
+                <h2>ChatGPTの応答:</h2>
+                <p>サービスの目的: {{ chat_results.value }}</p>
+                <p>サービスの特徴: {{ chat_results.similar_services }}</p>
+                <p>サービスのメリット: {{ chat_results.unique_value }}</p>
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>

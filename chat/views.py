@@ -3,14 +3,20 @@ from django.http import HttpResponse
 from .forms import ServiceForm
 import openai
 
-def service_proposal_view(request):
+
+
+
+
+
+# ここでは商品の内容の整理
+def service_definition_view(request):
     chat_results = {"value": "", "similar_services": "", "unique_value": "", "solution": "", "customer": ""}
     if request.method == "POST":
         form = ServiceForm(request.POST)
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "8"
+            openai.api_key = "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"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -18,17 +24,13 @@ def service_proposal_view(request):
                     {
                         "role": "system",
                         "content": (
-                            "あなたはuserと一緒に企画を考えます。\n"
-                            "ユーザーが提案した新しいサービスにどんな価値のあるサービスか、\n"
-                            "その提案した物の類似のサービス、\n"
-                            "その提案したサービスの独自の価値を考えて\n"
+                            "あなたはuserと一緒にサービスの内容を考えます。\n"
+                            "ユーザーが提案したサービスを整理し答えなさい\n"
                             "以下にそれぞれの項目について回答してください：\n"
-                            "価値：\n"
-                            "類似のサービス：\n"
-                            "独自の価値：\n"
-                            "ソリューション：\n"
-                            "顧客：\n"
-                            "以上の項目を全て回答してください。"
+                            "サービスの目的:"
+                            "サービスの特徴："
+                            "サービスのメリット："
+                            "以上の項目を一つ回答してください。"
                         )
                     },
                     {
@@ -41,18 +43,13 @@ def service_proposal_view(request):
             chat_response = response["choices"][0]["message"]["content"]
             split_responses = chat_response.split("\n")
     
-            print(split_responses[0])
-            print(split_responses[1])
-            print(split_responses[2])
-            print(split_responses[3])
-            print(split_responses[4])
+            print(split_responses)
+
             
             chat_results = {
-                "value": split_responses[0],
-                "similar_services": split_responses[1],
-                "unique_value": split_responses[2],
-                "solution": split_responses[3],
-                "customer": split_responses[4],
+                "value": split_responses[1],
+                "similar_services": split_responses[4],
+                "unique_value": split_responses[7],
             }
     else:
         form = ServiceForm()
@@ -60,14 +57,15 @@ def service_proposal_view(request):
     return render(request, 'chat/chat.html', {'form': form, 'chat_results': chat_results})
 
 
-def product_ideas_view(request):
-    chat_results = {"product": "", "lookalike": "","customer": ""}
+# 顧客定義
+def customer_defind_view(request):
+    chat_results = {"product": "", "lookalike": "", "unique_value": "", "solution": "", "customer": ""}
     if request.method == "POST":
         form = ServiceForm(request.POST)
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = "8"
+            openai.api_key = "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"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -77,10 +75,10 @@ def product_ideas_view(request):
                         "content": (
                             "あなたはuserが提案した企画に、\n"
                             "アドバイスをするため\n"
-                            "以下の項目について、20文字以内で回答をお願いします\n"
-                            "商品の内容の整理："
+                            "以下の項目について、ひとつづつ回答をお願いします\n"
                             "顧客の定義："
-                            "類似商品："
+                            "顧客価値提供："
+                            "ニーズと要求:"
                             "それぞれの項目について、詳細な情報を提供してください。"
                         )
                     },
@@ -107,6 +105,7 @@ def product_ideas_view(request):
     return render(request, 'chat/product_ideas.html', {'form': form, 'chat_results': chat_results})
 
 
+
 def business_composition_view(request):
     chat_results = {"source_of_income": "", "business_model": ""}
     if request.method == "POST":
@@ -114,7 +113,7 @@ def business_composition_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = ""
+            openai.api_key = "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"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -158,7 +157,7 @@ def initial_hypothesis_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = ""
+            openai.api_key = "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"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -202,7 +201,7 @@ def product_ideas_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = ""
+            openai.api_key = "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"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -213,9 +212,9 @@ def product_ideas_view(request):
                             "あなたはuserが提案した企画に、\n"
                             "アドバイスをするため\n"
                             "以下の項目について、20文字以内で回答をお願いします\n"
-                            "商品の内容の整理："
                             "顧客の定義："
-                            "類似商品："
+                            "想定している顧客："
+                            "想定している顧客が抱えている課題"
                             "それぞれの項目について、詳細な情報を提供してください。"
                         )
                     },
@@ -249,7 +248,7 @@ def business_composition_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = ""
+            openai.api_key = "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"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -293,7 +292,7 @@ def market_view(request):
         if form.is_valid():
             service_details = form.cleaned_data['service_details']
 
-            openai.api_key = ""
+            openai.api_key = "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"
 
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
@@ -303,10 +302,11 @@ def market_view(request):
                         "content": (
                             "あなたはuserが提案した企画に、\n"
                             "アドバイスをするため\n"
-                            "以下の項目について、20文字以内で回答をお願いします\n"
+                            "以下の項目について、2回答をお願いします\n"
                             "市場の定義："
                             "市場のセグメンテーション："
                             "それぞれの項目について、詳細な情報を提供してください。"
+                            
                         )
                     },
                     {
@@ -318,11 +318,13 @@ def market_view(request):
 
             chat_response = response['choices'][-1]['message']['content']
             split_responses = chat_response.split("\n")
+            
+            print(split_responses)
 
             if len(split_responses) >= 2:
                 chat_results = {
                     "source_of_income": split_responses[0].replace("顧客の可視化：", "").strip(),
-                    "business_model": split_responses[2].replace("ペルソナの可視化：", "").strip(),
+                    "business_model": split_responses[1].replace("ペルソナの可視化：", "").strip(),
                 }
     else:
         form = ServiceForm()
